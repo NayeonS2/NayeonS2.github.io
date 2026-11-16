@@ -1,0 +1,319 @@
+---
+---
+
+// Chirpy 7.6.0의 assets/css/jekyll-theme-chirpy.scss를 덮어쓴다.
+// 1) 기본·제목 글꼴을 Pretendard로 바꾸고 2) 색상을 '키티 핑크' 테마로 바꾸고
+// 3) 시리즈 박스(_includes/series-nav.html) 스타일을 더한다.
+// Pretendard, Gaegu 웹폰트는 _includes/metadata-hook.html에서 불러온다.
+
+$kr-font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}',
+  $font-family-base: $kr-font,
+  $font-family-heading: $kr-font
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* ---------- 1. 글꼴 ---------- */
+
+.pagination,
+#archives .date,
+kbd {
+  font-family: $kr-font;
+}
+
+.content {
+  line-height: 1.85;
+  letter-spacing: -0.005em;
+  word-break: keep-all; // 한국어 단어 중간에서 줄이 바뀌지 않게 한다
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 2. 색상: 키티 핑크 ---------- */
+// 프로필 사진의 빨간 리본(#e11d48)을 강조색으로, 연분홍을 바탕색으로 쓴다.
+
+@mixin kitty-light {
+  --accent: #e11d48;
+  --accent-strong: #be123c;
+  --accent-soft: #fff1f4;
+  --pink-border: #fbd5de;
+
+  --main-bg: #fffbfc;
+  --main-border-color: #fde4ea;
+  --heading-color: #2d1a20;
+  --link-color: #be123c;
+  --link-underline-color: #fecdd6;
+  --blockquote-border-color: #fda4af;
+  --toc-highlight: #e11d48;
+  --btn-share-hover-color: #e11d48;
+  --checkbox-checked-color: #e11d48;
+  --footnote-target-bg: #ffe4ea;
+
+  --sidebar-bg: #fff0f3;
+  --sidebar-border-color: #fbd5de;
+  --sidebar-muted-color: #7f4b58;
+  --sidebar-active-color: #be123c;
+  --sidebar-hover-bg: #ffe4ea;
+  --sidebar-btn-bg: #ffffff;
+  --sidebar-btn-color: #c27a8c;
+  --site-title-color: #9f1239;
+  --site-subtitle-color: #b06478;
+  --avatar-border-color: #fda4af;
+
+  --topbar-bg: rgb(255 251 252 / 80%);
+  --card-bg: #ffffff;
+  --card-hover-bg: #fff5f7;
+  --card-shadow: 0 0 0 1px #fbd5de;
+  --tb-odd-bg: #fff8fa;
+  --tb-border-color: #fbe0e7;
+}
+
+@mixin kitty-dark {
+  --accent: #fb7185;
+  --accent-strong: #fda4af;
+  --accent-soft: rgb(251 113 133 / 12%);
+  --pink-border: rgb(251 113 133 / 28%);
+
+  --link-color: #fda4af;
+  --link-underline-color: rgb(253 164 175 / 35%);
+  --blockquote-border-color: #be4560;
+  --toc-highlight: #fb7185;
+  --btn-share-hover-color: #fb7185;
+  --checkbox-checked-color: #fb7185;
+
+  --sidebar-bg: #221a1d;
+  --sidebar-border-color: #3a2a30;
+  --sidebar-active-color: #fecdd6;
+  --sidebar-hover-bg: rgb(251 113 133 / 14%);
+  --site-title-color: #fda4af;
+  --site-subtitle-color: #c9a0aa;
+  --avatar-border-color: #be4560;
+
+  --card-shadow: 0 0 0 1px rgb(251 113 133 / 22%);
+}
+
+:root[data-bs-theme='light'] {
+  @include kitty-light;
+}
+
+:root[data-bs-theme='dark'] {
+  @include kitty-dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-bs-theme]) {
+    @include kitty-light;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme]) {
+    @include kitty-dark;
+  }
+}
+
+/* 블로그 이름은 손글씨체(개구체), Google Fonts에서 불러온다 */
+#sidebar .site-title {
+  font-family: 'Gaegu', $kr-font;
+  font-weight: 700;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  word-break: keep-all;
+  letter-spacing: -0.01em;
+}
+
+#sidebar .site-subtitle {
+  font-style: normal !important;
+  line-height: 1.5;
+  margin-bottom: 0.75rem !important;
+}
+
+#sidebar #avatar {
+  box-shadow: var(--avatar-border-color) 0 0 0 3px;
+}
+
+/* 홈 화면 글 카드: 둥근 모서리 + 분홍 테두리 */
+#post-list .card-wrapper .card {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* 태그는 둥근 알약 모양 */
+.post-tag {
+  border-radius: 999px;
+  border-color: var(--pink-border);
+  background: var(--accent-soft);
+  color: var(--accent-strong) !important;
+  padding: 0 0.6rem;
+}
+
+/* 표지·본문 이미지 모서리 */
+.content img,
+.preview-img {
+  border-radius: 12px;
+}
+
+/* 본문 링크는 밑줄 대신 색으로만 구분하고, 마우스를 올리면 밑줄을 보인다 */
+.content a:not(.img-link):not(.popup) {
+  text-decoration: none;
+  border-bottom: 1px solid var(--link-underline-color);
+
+  &:hover {
+    border-bottom-color: var(--link-color);
+  }
+}
+
+/* TL;DR 같은 인용 블록 */
+.content blockquote {
+  border-left: 4px solid var(--blockquote-border-color);
+  background: var(--accent-soft);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.75rem 1rem;
+  color: var(--text-color);
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* ---------- 3. 시리즈 박스 ---------- */
+
+.series-box {
+  margin: 1.25rem 0 1.75rem;
+  border: 1px solid var(--main-border-color);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 0.9rem 0.9rem 0;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  padding: 0.7rem 1rem;
+
+  summary {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      // 아래 방향 꺾쇠. 아이콘 글꼴 없이 테두리로 그린다.
+      content: '';
+      margin-left: auto;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-right: 2px solid var(--text-muted-color);
+      border-bottom: 2px solid var(--text-muted-color);
+      transform: translateY(-25%) rotate(45deg);
+      transition: transform 0.2s;
+    }
+  }
+
+  &[open] summary::after {
+    transform: translateY(25%) rotate(-135deg);
+  }
+
+  .series-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.45rem;
+  }
+
+  .series-name {
+    font-weight: 700;
+    color: var(--heading-color);
+  }
+
+  .series-progress {
+    font-size: 0.85rem;
+    color: var(--text-muted-color);
+  }
+
+  .series-desc {
+    margin: 0.6rem 0 0.4rem;
+    font-size: 0.92rem;
+    color: var(--text-muted-color);
+  }
+
+  .series-list {
+    margin: 0.4rem 0 0.2rem;
+    padding-left: 1.6rem;
+    font-size: 0.95rem;
+
+    li {
+      padding: 0.12rem 0;
+    }
+
+    li.current span {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    li.planned {
+      color: var(--text-muted-color);
+      opacity: 0.75;
+
+      em {
+        font-style: normal;
+        font-size: 0.75rem;
+        margin-left: 0.45rem;
+        border: 1px solid var(--main-border-color);
+        border-radius: 0.25rem;
+        padding: 0 0.3rem;
+      }
+    }
+  }
+}
+
+.series-pager {
+  display: flex;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+
+  .series-pager-item {
+    flex: 1;
+    min-width: 0;
+
+    &.next {
+      text-align: right;
+    }
+
+    &:not(:empty) {
+      border: 1px solid var(--main-border-color);
+      border-radius: 0.6rem;
+      padding: 0.75rem 1rem;
+      background: var(--card-bg);
+      box-shadow: var(--card-shadow);
+    }
+
+    small {
+      display: block;
+      color: var(--text-muted-color);
+      font-size: 0.78rem;
+      margin-bottom: 0.2rem;
+    }
+
+    a,
+    .planned {
+      font-weight: 600;
+    }
+
+    .planned {
+      color: var(--text-muted-color);
+    }
+  }
+}

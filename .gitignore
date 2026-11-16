@@ -30,3 +30,11 @@ assets/js/dist
 *~
 .DS_Store
 Thumbs.db
+
+# Python
+.venv/
+__pycache__/
+
+# 글 작성 도구(로컬 전용, 공개 저장소에 올리지 않음)
+.claude/
+tools/markdown_guard.py
