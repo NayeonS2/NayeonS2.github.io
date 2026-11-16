@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: "끄적끄적 인공지능 페이퍼로그" # the main title
 
-tagline: Abstract만 음미하는 일상에서 탈출하기 # it will display as the subtitle
+tagline: Abstract만 음미하는 일상 탈출하기 # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   LLM, VLM, 에이전트 AI, 모델 학습·추론 시스템 논문을 깊게 읽고 수식, 그림, 직접 돌려 본 코드로 정리하는 기술 블로그.
@@ -150,7 +150,7 @@ assets:
 pwa:
   enabled: true # The option for PWA feature (installable)
   cache:
-    enabled: true # The option for PWA offline cache
+    enabled: false # The option for PWA offline cache (꺼 둠: 새 글을 올린 뒤 예전 화면이 남는 문제 방지)
     # Paths defined here will be excluded from the PWA cache.
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
