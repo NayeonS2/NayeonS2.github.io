@@ -1,0 +1,47 @@
+# 시리즈 정보. 글 front matter의 `series` 값이 아래 키와 같아야 한다.
+# items는 연재 예정 순서다. 글의 `series_order`가 items의 몇 번째(1부터)인지 가리킨다.
+# 아직 안 쓴 글은 시리즈 박스에 "예정"으로 회색 표시된다.
+
+llm-foundations:
+  title: LLM Foundations
+  description: Transformer부터 LLaMA까지, 지금의 LLM을 만든 핵심 논문을 발표 순서대로 읽는다.
+  items:
+    - Attention Is All You Need (Transformer)
+    - GPT-1
+    - BERT
+    - GPT-2
+    - T5
+    - GPT-3
+    - RoFormer (RoPE)
+    - LLaMA
+    - Mamba
+
+scaling:
+  title: Scaling & Efficient Architectures
+  description: 모델을 얼마나, 어떻게 키울지에 대한 법칙과 MoE 구조를 다룬다.
+  items: [Scaling Laws, Chinchilla, Switch Transformer, Mixtral of Experts, DeepSeek-V3]
+
+alignment-reasoning:
+  title: Alignment & Reasoning
+  description: RLHF에서 DPO, 그리고 강화학습으로 추론 능력을 키우는 흐름까지 다룬다.
+  items: [InstructGPT, Constitutional AI, DPO, Chain-of-Thought Prompting, Self-Consistency, "Let's Verify Step by Step", DeepSeek-R1]
+
+vlm:
+  title: Vision-Language Models
+  description: 이미지를 토큰으로 바꾸는 방법부터 LLM과 시각 인코더를 잇는 방법까지 다룬다.
+  items: [ViT, CLIP, Flamingo, BLIP-2, SigLIP, LLaVA, Qwen2-VL]
+
+agents-rag:
+  title: Agents & RAG
+  description: 검색, 도구 사용, 자기 개선, 계획을 통해 LLM이 행동하게 만드는 연구를 다룬다.
+  items: [RAG, ReAct, Toolformer, Reflexion, Tree of Thoughts, Generative Agents, SWE-agent]
+
+training-systems:
+  title: Training Systems
+  description: 큰 모델을 적은 메모리와 여러 GPU로 학습시키는 기법을 다룬다.
+  items: [Mixed Precision Training, Megatron-LM, ZeRO, LoRA, QLoRA]
+
+inference-systems:
+  title: Inference Systems
+  description: 학습이 끝난 모델을 빠르고 싸게 서빙하는 기법을 다룬다.
+  items: [FlashAttention, Grouped-Query Attention, PagedAttention (vLLM), Speculative Decoding, GPTQ / AWQ]
