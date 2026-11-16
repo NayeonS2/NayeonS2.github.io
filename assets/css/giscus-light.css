@@ -1,0 +1,20 @@
+/* giscus 댓글 창 라이트 테마: giscus 기본 light 위에 블로그 분홍 강조색만 덮어쓴다 */
+@import url("https://giscus.app/themes/light.css");
+
+main {
+  --color-accent-fg: #be123c;
+  --color-accent-emphasis: #e11d48;
+  --color-accent-muted: rgb(225 29 72 / 30%);
+  --color-accent-subtle: #fff1f4;
+  --color-btn-primary-bg: #e11d48;
+  --color-btn-primary-hover-bg: #be123c;
+  --color-btn-primary-selected-bg: #9f1239;
+  --color-btn-primary-border: #be123c;
+  --color-btn-primary-hover-border: #9f1239;
+  --color-btn-primary-disabled-bg: #fda4af;
+  --color-btn-primary-disabled-border: #fda4af;
+  --color-canvas-default: #ffffff;
+  --color-canvas-subtle: #fff8fa;
+  --color-border-default: #fbd5de;
+  --color-border-muted: #fde4ea;
+}
