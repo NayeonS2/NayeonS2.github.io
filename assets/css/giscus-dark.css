@@ -1,0 +1,16 @@
+/* giscus 댓글 창 다크 테마: giscus 기본 dark_dimmed 위에 분홍 강조색만 덮어쓴다 */
+@import url("https://giscus.app/themes/dark_dimmed.css");
+
+main {
+  --color-accent-fg: #fda4af;
+  --color-accent-emphasis: #fb7185;
+  --color-accent-muted: rgb(251 113 133 / 35%);
+  --color-accent-subtle: rgb(251 113 133 / 12%);
+  --color-btn-primary-bg: #e11d48;
+  --color-btn-primary-hover-bg: #fb7185;
+  --color-btn-primary-selected-bg: #be123c;
+  --color-btn-primary-border: #e11d48;
+  --color-btn-primary-hover-border: #fb7185;
+  --color-btn-primary-disabled-bg: rgb(225 29 72 / 45%);
+  --color-btn-primary-disabled-border: rgb(225 29 72 / 45%);
+}

@@ -1,9 +1,9 @@
 ---
-title: "[LLM Foundations #1] Attention Is All You Need"
-description: "RNN 없이 attention만으로 번역 모델을 만든 Transformer를 구조, 수식, 실험 결과, 직접 돌려 본 PyTorch 코드로 정리한다."
+title: "[LLM Foundations #1] Attention Is All You Need 논문 리뷰"
+description: "트랜스포머(Transformer) 논문 Attention Is All You Need 리뷰. 셀프 어텐션, 멀티헤드 어텐션, 위치 인코딩을 수식과 그림, 직접 돌려 본 PyTorch 코드로 정리한다."
 date: 2026-11-17 02:30:00 +0900
 categories: [Foundations, LLM]
-tags: [transformer, attention, self-attention, machine-translation, positional-encoding]
+tags: [transformer, attention, self-attention, multi-head-attention, positional-encoding, paper-review]
 math: true
 mermaid: true
 image:
@@ -20,7 +20,7 @@ paper:
 
 > **TL;DR**
 > 2017년까지 기계 번역 모델은 RNN으로 단어를 하나씩 순서대로 처리했기 때문에 학습을 병렬화하기 어려웠다.
-> 이 논문은 순환(recurrence)과 합성곱(convolution)을 모두 빼고 attention만으로 인코더와 디코더를 만든 Transformer를 제안했다.
+> 이 논문은 순환(recurrence)과 합성곱(convolution)을 모두 빼고 attention만으로 인코더와 디코더를 만든 Transformer(트랜스포머)를 제안했다.
 > 그 결과 WMT 2014 영어→독일어 번역에서 기존 최고 기록을 BLEU 2.0 이상 넘었고 학습 비용은 기존 모델보다 훨씬 적게 들었다.
 
 이 글은 LLM Foundations 시리즈의 첫 글이다. 지금 쓰이는 GPT, LLaMA, Claude 같은 대규모 언어 모델은 모두 이 논문의 구조를 바탕으로 한다. 이 시리즈의 이후 글들도 이 글에서 설명하는 개념을 계속 참조할 것이다.
@@ -297,6 +297,10 @@ flowchart LR
 ## 직접 해보기
 
 이 절의 코드는 논문의 핵심 구성 요소를 PyTorch로 구현하고 구현이 맞는지 스스로 검사한다. CPU만으로 몇 초 안에 끝나고 외부 데이터나 사전학습 가중치가 필요 없다.
+
+아래 버튼을 누르면 같은 코드를 Google Colab에서 설치 없이 바로 실행해 볼 수 있다.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg){: .colab-badge }](https://colab.research.google.com/github/NayeonS2/NayeonS2.github.io/blob/main/code/transformer/demo.ipynb)
 
 코드는 네 가지를 확인한다.
 

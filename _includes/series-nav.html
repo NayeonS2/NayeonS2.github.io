@@ -34,9 +34,9 @@
           {%- endfor -%}
           {%- assign idx = i | minus: 1 -%}
           {%- if found and found.url == page.url -%}
-            <li class="current"><span>{{ found.title | split: '] ' | last }}</span></li>
+            <li class="current"><span>{{ found.title | split: '] ' | last | remove: ' 논문 리뷰' }}</span></li>
           {%- elsif found -%}
-            <li><a href="{{ found.url | relative_url }}">{{ found.title | split: '] ' | last }}</a></li>
+            <li><a href="{{ found.url | relative_url }}">{{ found.title | split: '] ' | last | remove: ' 논문 리뷰' }}</a></li>
           {%- else -%}
             <li class="planned"><span>{{ s.items[idx] }}</span><em>예정</em></li>
           {%- endif -%}
@@ -48,13 +48,13 @@
       <div class="series-pager-item prev">
         {%- if prev_post -%}
           <small>이전 글 · {{ s.title }} #{{ prev_order }}</small>
-          <a href="{{ prev_post.url | relative_url }}">{{ prev_post.title | split: '] ' | last }}</a>
+          <a href="{{ prev_post.url | relative_url }}">{{ prev_post.title | split: '] ' | last | remove: ' 논문 리뷰' }}</a>
         {%- endif -%}
       </div>
       <div class="series-pager-item next">
         {%- if next_post -%}
           <small>다음 글 · {{ s.title }} #{{ next_order }}</small>
-          <a href="{{ next_post.url | relative_url }}">{{ next_post.title | split: '] ' | last }}</a>
+          <a href="{{ next_post.url | relative_url }}">{{ next_post.title | split: '] ' | last | remove: ' 논문 리뷰' }}</a>
         {%- elsif cur < total -%}
           {%- assign nidx = cur -%}
           <small>다음 글 · {{ s.title }} #{{ next_order }}</small>

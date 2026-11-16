@@ -155,9 +155,28 @@ kbd {
 }
 
 /* 표지·본문 이미지 모서리 */
-.content img,
+.content img:not(.colab-badge),
 .preview-img {
   border-radius: 12px;
+}
+
+/* Colab 실행 배지: 테마의 이미지 틀(배경·그림자)을 빼고 원래 크기로 보인다 */
+.content img.colab-badge {
+  display: inline-block;
+  width: auto;
+  height: 20px;
+  background: none;
+  box-shadow: none;
+  margin: 0;
+}
+
+.content a:has(> img.colab-badge) {
+  border-bottom: none !important;
+}
+
+/* 카카오톡 공유 버튼에 마우스를 올리면 카카오 노란색으로 */
+#share-kakao:hover i {
+  color: #f9d000;
 }
 
 /* 본문 링크는 밑줄 대신 색으로만 구분하고, 마우스를 올리면 밑줄을 보인다 */

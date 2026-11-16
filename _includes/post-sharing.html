@@ -1,0 +1,102 @@
+<!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">{{ site.data.locales[include.lang].post.share }}</span>
+  <span class="share-icons">
+    {% capture title %}{{ page.title }} - {{ site.title }}{% endcapture %}
+    {% assign title = title | uri_escape %}
+    {% assign url = page.url | absolute_url | url_encode %}
+
+    {% for share in site.data.share.platforms -%}
+      {%- capture tooltip -%}
+        data-bs-toggle="tooltip" data-bs-placement="top" title="{{ share.type }}" aria-label="{{ share.type }}"
+      {%- endcapture -%}
+
+      {% if share.type == 'Mastodon' %}
+        <script defer type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/share-to-mastodon/+esm"></script>
+        <button class="btn text-start" {{ tooltip }}>
+          <share-to-mastodon
+            class="share-mastodon"
+            message="{{ title }}"
+            url="{{ url }}"
+            {%- if share.instances -%}
+              customInstanceList="{{ share.instances | jsonify | xml_escape }}"
+            {%- endif %}
+          >
+            <i class="fa-fw {{ share.icon }}"></i>
+          </share-to-mastodon>
+        </button>
+
+        {% continue %}
+      {% endif %}
+
+      {% assign link = share.link | replace: 'TITLE', title | replace: 'URL', url %}
+
+      <a href="{{ link }}" target="_blank" rel="noopener" {{ tooltip }}>
+        <i class="fa-fw {{ share.icon }}"></i>
+      </a>
+    {% endfor %}
+
+    {%- comment -%}
+      (custom) 카카오톡 공유 버튼. _config.yml의 kakao.js_key가 있을 때만 보인다.
+      키는 카카오 디벨로퍼스 > 내 애플리케이션 > 앱 키 > JavaScript 키이고,
+      플랫폼 > Web > 사이트 도메인에 블로그 주소를 등록해야 동작한다.
+    {%- endcomment -%}
+    {% if site.kakao.js_key %}
+      <button
+        id="share-kakao"
+        type="button"
+        class="btn"
+        aria-label="KakaoTalk"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
+        title="KakaoTalk"
+      >
+        <i class="fa-fw fas fa-comment"></i>
+      </button>
+      <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+      <script>
+        (function () {
+          const btn = document.getElementById('share-kakao');
+          if (!window.Kakao || !btn) return;
+          if (!Kakao.isInitialized()) Kakao.init('{{ site.kakao.js_key }}');
+          btn.addEventListener('click', function () {
+            Kakao.Share.sendDefault({
+              objectType: 'feed',
+              content: {
+                title: {{ page.title | jsonify }},
+                description: {{ page.description | default: site.description | jsonify }},
+                imageUrl: '{{ page.image.path | default: page.image | default: site.social_preview_image | absolute_url }}',
+                link: {
+                  mobileWebUrl: '{{ page.url | absolute_url }}',
+                  webUrl: '{{ page.url | absolute_url }}'
+                }
+              },
+              buttons: [
+                {
+                  title: '글 읽기',
+                  link: {
+                    mobileWebUrl: '{{ page.url | absolute_url }}',
+                    webUrl: '{{ page.url | absolute_url }}'
+                  }
+                }
+              ]
+            });
+          });
+        })();
+      </script>
+    {% endif %}
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="{{ site.data.locales[include.lang].post.button.share_link.title }}"
+      data-title-succeed="{{ site.data.locales[include.lang].post.button.share_link.succeed }}"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
